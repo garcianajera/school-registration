@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+ app-net:
+      
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always  
+    depends_on:
+      - db
+    environment:  
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/registration?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: spring
+      SPRING_DATASOURCE_PASSWORD: spring123 
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+    networks:
+      - app-net
+
+# Database Service (Mysql)
+  db:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: registration
+      MYSQL_USER: spring
+      MYSQL_PASSWORD: spring123
+      MYSQL_ROOT_PASSWORD: rt4$tyr4
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-net  
+  
+# Volumes
+volumes:
+  db-data:
