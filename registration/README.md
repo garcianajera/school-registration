@@ -22,6 +22,8 @@ It uses Optimistic lock and register operation is transactionals to ensure we do
 
 ## How to set up project
 Application can be deployed using docker-compose (it was tested with docker-compose version 1.17.1)
+* build jar, go to project directory and run : gradlew build
+* Docker: I'm using image openjdk:11 and Mysql 8, app is running on 8080 and mapped to port 80
 * got to root folder and run: docker-compose up 
 * open a browser and go to http://localhost/swagger-ui.html
 * OpenApi definition: http://localhost/v3/api-docs
