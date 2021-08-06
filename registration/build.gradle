@@ -19,9 +19,9 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
   implementation 'org.springdoc:springdoc-openapi-ui:1.5.9'
-  implementation 'mysql:mysql-connector-java'
-  //runtimeOnly 'com.h2database:h2'
+  runtimeOnly 'mysql:mysql-connector-java'
   
+  testImplementation 'com.h2database:h2'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'junit:junit:4.13.2'
   
