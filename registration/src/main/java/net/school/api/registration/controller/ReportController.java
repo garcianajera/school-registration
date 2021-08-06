@@ -22,12 +22,12 @@ public class ReportController {
 	}
 
 	@GetMapping("/students/{id}/courses")
-	List<Course> getAllCourses(@PathVariable Integer id) {
+	List<Course> getAllCoursesByStudentId(@PathVariable Integer id) {
 		return reportService.getAllCoursesByStudentId(id);
 	}
 
 	@GetMapping("/courses/{id}/students")
-	List<Student> getAllStudents(@PathVariable Integer id) {
+	List<Student> getAllStudentsByCourseId(@PathVariable Integer id) {
 		return reportService.getAllStudentsByCourseId(id);
 	}
 
