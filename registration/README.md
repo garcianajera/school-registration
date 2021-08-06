@@ -28,7 +28,7 @@ Application can be deployed using docker-compose (it was tested with docker-comp
 
 
 ## Endpoints and payloads
-#####Students CRUD endpoints
+##### Students CRUD endpoints
 
 * GET /api​/students​/{id}
 * PUT /api​/students​/{id}
@@ -44,7 +44,7 @@ Request body example value
 	  "email": "string"
 	}
 
-#####Course CRUD endpoints
+##### Course CRUD endpoints
 * GET /api​/courses​/{id}
 * PUT /api​/courses​/{id}
 * DELETE /api​/courses​/{id}
@@ -58,7 +58,7 @@ Request body example value
 	  "name": "string"
 	}
 
-#####Registration endpoint
+##### Registration endpoint
 * POST /api​/registration
 
 Request body example value
@@ -68,7 +68,7 @@ Request body example value
       "courseId": 0
 	}
 
-#####Registration endpoins
+##### Registration endpoins
 * GET /api​/reports​/students​/{id}​/courses
 * GET ​/api​/reports​/students​/courses​/empty
 * GET ​/api​/reports​/courses​/{id}​/students
