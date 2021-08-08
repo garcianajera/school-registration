@@ -8,26 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import net.school.api.registration.entity.Course;
 import net.school.api.registration.entity.CourseRegistration;
 import net.school.api.registration.entity.CourseRegistrationKey;
 import net.school.api.registration.entity.Student;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@DirtiesContext
-@TestPropertySource(properties = { "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"
-
-})
-class StudentRepositoryTest {
+class StudentRepositoryTest extends BaseRepositoryTest {
 
 	@Autowired
 	private TestEntityManager entityManager;
@@ -39,7 +28,6 @@ class StudentRepositoryTest {
 	void testFindByNameAndEmail() {
 		Student student = new Student(1, "John", "mail@mail.com");
 		entityManager.persist(student);
-		entityManager.flush();
 
 		Optional<Student> studentFromDb = studentRepository.findByNameAndEmail("John", "mail@mail.com");
 		assertTrue(studentFromDb.isPresent());
@@ -50,15 +38,12 @@ class StudentRepositoryTest {
 	void testFindByCoursesIsEmpty() {
 		Student studentNoCourses = new Student(1, "No Courses", "mail@mail.com");
 		entityManager.persist(studentNoCourses);
-		entityManager.flush();
 
 		Student student = new Student(123, "Juan", "mail@mail.com");
 		entityManager.persist(student);
-		entityManager.flush();
 
 		Course course = new Course(2, "Spanish");
 		entityManager.persist(course);
-		entityManager.flush();
 
 		CourseRegistration courseRegistration = new CourseRegistration(
 				new CourseRegistrationKey(student.getId(), course.getId()));
@@ -66,7 +51,6 @@ class StudentRepositoryTest {
 		courseRegistration.setCourse(course);
 		courseRegistration.setStudent(student);
 		entityManager.persist(courseRegistration);
-		entityManager.flush();
 
 		List<Student> studentsFromDb = studentRepository.findByCoursesIsEmpty();
 

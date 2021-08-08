@@ -8,26 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import net.school.api.registration.entity.Course;
 import net.school.api.registration.entity.CourseRegistration;
 import net.school.api.registration.entity.CourseRegistrationKey;
 import net.school.api.registration.entity.Student;
 
-@RunWith(SpringRunner.class)
-@DirtiesContext
-@DataJpaTest
-@TestPropertySource(properties = { "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"
-
-})
-class CourseRepositoryTest {
+class CourseRepositoryTest extends BaseRepositoryTest {
 
 	@Autowired
 	private TestEntityManager entityManager;
@@ -39,7 +28,6 @@ class CourseRepositoryTest {
 	void testFindByName() {
 		Course course = new Course(1, "Math");
 		entityManager.persist(course);
-		entityManager.flush();
 
 		Optional<Course> courseFromDb = courseRepository.findByName("Math");
 		assertTrue(courseFromDb.isPresent());
@@ -50,15 +38,12 @@ class CourseRepositoryTest {
 	void testFindByStudentsIsEmpty() {
 		Course course = new Course(1, "No Students");
 		entityManager.persist(course);
-		entityManager.flush();
 
 		Student student = new Student(123, "Juan", "mail@mail.com");
 		entityManager.persist(student);
-		entityManager.flush();
 
 		Course courseWithStudents = new Course(2, "Spanish");
 		entityManager.persist(courseWithStudents);
-		entityManager.flush();
 
 		CourseRegistration courseRegistration = new CourseRegistration(
 				new CourseRegistrationKey(student.getId(), courseWithStudents.getId()));
@@ -66,7 +51,6 @@ class CourseRepositoryTest {
 		courseRegistration.setCourse(courseWithStudents);
 		courseRegistration.setStudent(student);
 		entityManager.persist(courseRegistration);
-		entityManager.flush();
 
 		List<Course> coursesFromDb = courseRepository.findByStudentsIsEmpty();
 
