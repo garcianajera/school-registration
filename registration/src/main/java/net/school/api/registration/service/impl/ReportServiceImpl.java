@@ -27,16 +27,13 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public List<Student> getAllStudentsByCourseId(Integer courseId) {
-		return courseRepository.findById(courseId).map(c -> {
-			return c.getStudents().stream().map(CourseRegistration::getStudent).collect(Collectors.toList());
-		}).orElseThrow(() -> new CourseNotFoundException(courseId));
+		return courseRepository.findById(courseId).map(c -> c.getStudents().stream().map(CourseRegistration::getStudent).collect(Collectors.toList())).orElseThrow(() -> new CourseNotFoundException(courseId));
 	}
 
 	@Override
 	public List<Course> getAllCoursesByStudentId(Integer studentId) {
-		return studentRepository.findById(studentId).map(s -> {
-			return s.getCourses().stream().map(CourseRegistration::getCourse).collect(Collectors.toList());
-		}).orElseThrow(() -> new CourseNotFoundException(studentId));
+		return studentRepository.findById(studentId).map(s -> s.getCourses().stream()
+																													 .map(CourseRegistration::getCourse).collect(Collectors.toList())).orElseThrow(() -> new CourseNotFoundException(studentId));
 	}
 
 	@Override

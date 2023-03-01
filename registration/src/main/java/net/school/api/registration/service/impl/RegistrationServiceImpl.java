@@ -15,6 +15,8 @@ import net.school.api.registration.service.CourseService;
 import net.school.api.registration.service.RegistrationService;
 import net.school.api.registration.service.StudentService;
 
+import java.util.Objects;
+
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
 	private static final int MAX_NUMBER_OF_STUDENTS = 50;
@@ -69,7 +71,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	boolean isStudentEnrolled(Student student, Integer courseId) {
-		return student.getCourses().stream().filter(c -> c.getId().getCourseId() == courseId).findAny().isPresent();
+		return student.getCourses().stream().anyMatch(c -> Objects.equals(c.getId().getCourseId(), courseId));
 	}
 
 }

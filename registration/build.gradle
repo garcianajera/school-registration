@@ -8,7 +8,7 @@ group = 'net.school.api'
 version = '0.0.1'
 
 
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.11'
 
 repositories {
 	mavenCentral()
